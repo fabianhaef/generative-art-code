@@ -7,7 +7,7 @@ const { createCanvas, loadImage} = require("canvas");
 // import layers, width and height from config
 const {layers, width, height} = require('./input/config.js');
 
-// create a canvas with 1000 x 1000 Pixel size
+// create a canvas with 1000x 1000 Pixel size
 const canvas = createCanvas(1000, 1000);
 
 // context is mandatory to draw and make shapes etc.
@@ -24,12 +24,10 @@ const saveLayer = (_canvas, _edition) => {
 // multiple layers for our art => not only one layer
 const drawLayer = async (_layer, _edition) => {
   let element = _layer.elements[Math.floor(Math.random() * _layer.elements.length)]
-  console.log("Element", element)
   // takes in data as parameter after image is loaded
   const image = await loadImage(`${_layer.location}${element.fileName}`)
   // parameters are img, x, y, width and height
   ctx.drawImage(image, _layer.position.x, _layer.position.y, _layer.position.width, _layer.position.height);
-  console.log(`created layer ${_layer.name} and choose element ${element.name}`)
   saveLayer(canvas, _edition);
 };
 
@@ -38,5 +36,4 @@ for(let i = 1; i <= edition; i++) {
     drawLayer(layer, i);
   });
 
-  console.log("Creating edition" + i)
 }
